@@ -1,0 +1,104 @@
+<div class="detalles-container" *ngIf="personaje() as p">
+    <div class="card detalles-card">
+        <div class="card-body">
+            <div class="row g-4">
+                <!-- Imagen del Personaje (Lado Izquierdo) -->
+                <div class="col-12 col-md-4 d-flex align-items-stretch">
+                    <div class="imagen-wrapper">
+                        <img [src]="p.image" [alt]="p.name" class="personaje-imagen">
+                        <div class="imagen-overlay">
+                            <h2 class="nombre-grande">{{p.name}}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido Principal (Lado Derecho) -->
+                <div class="col-12 col-md-8">
+                    <!-- Encabezado -->
+                    <div class="detalles-header mb-4">
+                        <h1 class="detalles-titulo">{{p.name}}</h1>
+                        <p class="detalles-subtitulo">{{p.affiliation}} • {{p.race}}</p>
+                    </div>
+
+                    <!-- Información Básica en Grid -->
+                    <div class="info-grid mb-4">
+                        <div class="info-box">
+                            <span class="info-label">Raza</span>
+                            <span class="info-dato">{{p.race}}</span>
+                        </div>
+                        <div class="info-box">
+                            <span class="info-label">Género</span>
+                            <span class="info-dato">{{p.gender}}</span>
+                        </div>
+                        <div class="info-box">
+                            <span class="info-label">Afiliación</span>
+                            <span class="info-dato">{{p.affiliation}}</span>
+                        </div>
+                        <div class="info-box">
+                            <span class="info-label">Ki</span>
+                            <span class="info-dato">{{p.ki}}</span>
+                        </div>
+                    </div>
+
+                    <!-- Ki Bars -->
+                    <div class="ki-section mb-4">
+                        <div class="ki-bar-container">
+                            <div class="ki-bar-label">
+                                <span>Ki Actual</span>
+                                <span class="ki-value">{{p.ki}}</span>
+                            </div>
+                            <div class="progress ki-progress">
+                                <div class="progress-bar ki-bar" role="progressbar" [style.width.%]="calcularPorcentajeKi()"></div>
+                            </div>
+                        </div>
+
+                        <div class="ki-bar-container">
+                            <div class="ki-bar-label">
+                                <span>Ki Máximo</span>
+                                <span class="ki-value">{{p.maxKi}}</span>
+                            </div>
+                            <div class="progress ki-progress">
+                                <div class="progress-bar ki-bar-max" role="progressbar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="descripcion-section mb-4">
+                        <h5 class="seccion-titulo">Descripción</h5>
+                        <p class="descripcion-texto">{{p.description}}</p>
+                    </div>
+
+                    <!-- Planeta de Origen -->
+                    <div class="planeta-section mb-4">
+                        <h5 class="seccion-titulo">Planeta de Origen</h5>
+                        <div class="planeta-card">
+                            <div class="planeta-info">
+                                <p class="text-white-50">Información no disponible</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transformaciones -->
+                    <div class="transformaciones-section">
+                        <h5 class="seccion-titulo">Transformaciones</h5>
+                        <div class="transformaciones-grid" *ngIf="p.transformations && p.transformations.length > 0; else noTransformaciones">
+                            <div class="transformacion-item" *ngFor="let trans of p.transformations">
+                                <div class="transformacion-card">
+                                    <img [src]="trans.image" [alt]="trans.name" class="transformacion-imagen">
+                                    <div class="transformacion-info">
+                                        <p class="transformacion-nombre">{{trans.name}}</p>
+                                        <p class="transformacion-ki">Ki: {{trans.ki}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template #noTransformaciones>
+                            <p class="text-white-50">No tiene transformaciones</p>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
